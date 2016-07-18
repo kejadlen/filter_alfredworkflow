@@ -1,0 +1,10 @@
+[package]
+name = "clean_alfred_workflow"
+version = "0.1.0"
+authors = ["Alpha Chen <alpha.chen@gmail.com>"]
+
+[dependencies]
+plist = "0.0.12"
+
+[profile.release]
+panic = "abort"
