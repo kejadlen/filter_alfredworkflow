@@ -11,20 +11,12 @@ fn main() {
     let mut plist = Plist::read(cursor).unwrap();
 
     {
-        let mut dict = match plist {
-                           Plist::Dictionary(ref mut dict) => Some(dict),
-                           _ => None,
-                       }
-                       .unwrap();
+        let mut dict = plist.as_dictionary_mut().unwrap();
         let vars = variables_dont_export(&dict);
 
-        let mut variables = match dict.get_mut("variables") {
-                                Some(&mut Plist::Dictionary(ref mut dict)) => {
-                                    Some(dict)
-                                }
-                                _ => None,
-                            }
-                            .unwrap();
+        let mut variables = dict.get_mut("variables")
+                                .and_then(|x| x.as_dictionary_mut())
+                                .unwrap();
         for var in vars {
             variables.insert(var.clone(), Plist::String("".into()));
         }
@@ -37,19 +29,12 @@ fn main() {
 }
 
 fn variables_dont_export(dict: &BTreeMap<String, Plist>) -> Vec<String> {
-    match dict.get("variablesdontexport") {
-        Some(&Plist::Array(ref array)) => Some(array),
-        _ => None,
-    }
-    .unwrap()
-    .iter()
-    .map(|x| {
-        match x {
-            &Plist::String(ref string) => Some(string),
-            _ => None,
-        }
+    dict.get("variablesdontexport")
+        .and_then(|x| x.as_array())
+        .map(|x| {
+            x.iter()
+             .map(|x| x.as_string().unwrap().into())
+             .collect::<Vec<_>>()
+        })
         .unwrap()
-        .clone()
-    })
-    .collect::<Vec<_>>()
 }

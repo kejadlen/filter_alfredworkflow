@@ -1,10 +1,10 @@
 [package]
-name = "clean_alfred_workflow"
+name = "alfredworkflow_clean"
 version = "0.1.0"
 authors = ["Alpha Chen <alpha.chen@gmail.com>"]
 
 [dependencies]
-plist = "0.0.12"
+plist = { git = "https://github.com/ebarnard/rust-plist.git", rev = "8b008d1" }
 
 [profile.release]
 panic = "abort"
