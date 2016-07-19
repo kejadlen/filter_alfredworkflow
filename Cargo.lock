@@ -1,5 +1,5 @@
 [root]
-name = "alfredworkflow_clean"
+name = "filter_alfredworkflow"
 version = "0.1.0"
 dependencies = [
  "plist 0.0.13 (git+https://github.com/ebarnard/rust-plist.git?rev=8b008d1)",
