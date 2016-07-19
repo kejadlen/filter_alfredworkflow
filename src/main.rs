@@ -1,8 +1,8 @@
 extern crate plist;
 
-use plist::{self, Plist};
+use plist::Plist;
 use std::collections::btree_map::BTreeMap;
-use std::io::{self, Read, Write};
+use std::io::{self, Read};
 
 fn main() {
     let mut buffer = String::new();
@@ -10,30 +10,30 @@ fn main() {
     let cursor = io::Cursor::new(buffer);
     let mut plist = Plist::read(cursor).unwrap();
 
-    let mut dict = match plist {
-                       Plist::Dictionary(ref mut dict) => Some(dict),
-                       _ => None,
-                   }
-                   .unwrap();
-    let vars = variables_dont_export(&dict);
+    {
+        let mut dict = match plist {
+                           Plist::Dictionary(ref mut dict) => Some(dict),
+                           _ => None,
+                       }
+                       .unwrap();
+        let vars = variables_dont_export(&dict);
 
-    let mut variables = match dict.get_mut("variables") {
-                            Some(&mut Plist::Dictionary(ref mut dict)) => {
-                                Some(dict)
+        let mut variables = match dict.get_mut("variables") {
+                                Some(&mut Plist::Dictionary(ref mut dict)) => {
+                                    Some(dict)
+                                }
+                                _ => None,
                             }
-                            _ => None,
-                        }
-                        .unwrap();
-    for var in vars {
-        variables.insert(var.clone(), Plist::String("".into()));
+                            .unwrap();
+        for var in vars {
+            variables.insert(var.clone(), Plist::String("".into()));
+        }
     }
 
-    // println!("{:?}", dict);
-    println!("{:?}", variables);
-
-    // io::stdout().write(b"hello world").unwrap();
-    let serializer = plist::Serializer::new(io::stdout());
-    serializer.write(dict);
+    let mut event_writer = plist::xml::EventWriter::new(io::stdout());
+    for event in plist.into_events() {
+        event_writer.write(&event).unwrap();
+    }
 }
 
 fn variables_dont_export(dict: &BTreeMap<String, Plist>) -> Vec<String> {
