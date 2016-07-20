@@ -36,3 +36,33 @@ Alfred.alfredpreferences/workflows/*/info.plist filter=alfredworkflow
 ``` shell
 git config filter.alfredworkflow.clean alfredworkflow_clean
 ```
+
+### Ruby
+
+For posterity's sake, the original Ruby version:
+
+``` ruby
+#!/usr/bin/env ruby
+
+require 'tempfile'
+
+plist = ARGF.read
+Tempfile.create('info.plist') do |f|
+  f << plist
+  f.flush
+
+  vars = `/usr/libexec/PlistBuddy -c "Print :variablesdontexport" #{f.path}`
+  vars = vars.split("\n")[1..-2].map(&:strip)
+
+  vars.each do |var|
+    `/usr/libexec/PlistBuddy -c "Set :variables:#{var} ''" #{f.path}`
+  end
+
+  f.rewind
+  puts f.read
+end
+```
+
+This pretty much works just as well as the Rust version, although it is
+negligibly slower. Go ahead this into an executable file on your `PATH` if
+that's more up your alley.
