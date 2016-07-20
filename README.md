@@ -12,7 +12,7 @@ It's for people that store Alfred preferences in a public git repo.
 Intended for use with git's [clean/smudge
 filtering](https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes#Keyword-Expansion).
 
-### `alfredworkflow_clean`
+### alfredworkflow_clean
 
 ``` shell
 git clone https://github.com/kejadlen/filter_alfredworkflow.git
@@ -25,13 +25,13 @@ repo and will need to be copied to somewhere in your `PATH`.
 
 ### git
 
-#### `.gitattributes`
+#### .gitattributes
 
 ```
 Alfred.alfredpreferences/workflows/*/info.plist filter=alfredworkflow
 ```
 
-#### `git config`
+#### git config
 
 ``` shell
 git config filter.alfredworkflow.clean alfredworkflow_clean
