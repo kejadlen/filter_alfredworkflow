@@ -1,4 +1,4 @@
-# filter.alfredworkflow
+# filter_alfredworkflow
 
 A utility that takes an [Alfred](https://www.alfredapp.com/) workflow's
 `info.plist` file from `STDIN` and outputs a cleaned version onto `STDOUT` that
