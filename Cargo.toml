@@ -8,7 +8,7 @@ name = "alfredworkflow_clean"
 path = "src/bin/clean.rs"
 
 [dependencies]
-plist = { git = "https://github.com/ebarnard/rust-plist.git", rev = "8b008d1" }
+plist = "0.0.13"
 
 [profile.release]
 panic = "abort"

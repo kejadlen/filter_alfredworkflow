@@ -2,7 +2,7 @@
 name = "filter_alfredworkflow"
 version = "0.1.0"
 dependencies = [
- "plist 0.0.13 (git+https://github.com/ebarnard/rust-plist.git?rev=8b008d1)",
+ "plist 0.0.13 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -73,7 +73,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "plist"
 version = "0.0.13"
-source = "git+https://github.com/ebarnard/rust-plist.git?rev=8b008d1#8b008d1766efff551694d32501525633a0045b06"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "byteorder 0.5.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "chrono 0.2.22 (registry+https://github.com/rust-lang/crates.io-index)",
