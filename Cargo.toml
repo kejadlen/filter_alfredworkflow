@@ -8,7 +8,7 @@ name = "alfredworkflow_clean"
 path = "src/bin/clean.rs"
 
 [dependencies]
-plist = "0.0.13"
+plist = "*"
 
 [profile.release]
 panic = "abort"
