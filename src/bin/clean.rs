@@ -34,5 +34,5 @@ fn variables_dont_export(dict: &plist::Dictionary) -> Vec<String> {
              .map(|x| x.as_string().unwrap().into())
              .collect::<Vec<_>>()
         })
-        .unwrap()
+        .unwrap_or_else(Vec::new)
 }
