@@ -2,12 +2,15 @@
 name = "filter_alfredworkflow"
 version = "0.1.0"
 authors = ["Alpha Chen <alpha.chen@gmail.com>"]
+edition = "2021"
 
 [[bin]]
 name = "alfredworkflow_clean"
 path = "src/bin/clean.rs"
 
 [dependencies]
+anyhow = "*"
+color-eyre = "*"
 plist = "*"
 
 [profile.release]
